@@ -15,6 +15,7 @@ class CalendarHeader extends Component {
     showIndicator: PropTypes.bool,
     firstDay: PropTypes.number,
     renderArrow: PropTypes.func,
+    styleSheet: PropTypes.object,
   };
 
   constructor(props) {
@@ -80,19 +81,19 @@ class CalendarHeader extends Component {
     }
     return (
       <View>
-        <View style={this.style.header}>
+        <View style={[this.style.header, this.props.styleSheet.header]}>
           {leftArrow}
           <View style={{ flexDirection: 'row' }}>
-            <Text style={this.style.monthText}>
+            <Text style={[this.style.monthText, this.props.styleSheet.monthText]}>
               {this.props.month.toString(this.props.monthFormat ? this.props.monthFormat : 'MMMM yyyy')}
             </Text>
             {indicator}
           </View>
           {rightArrow}
         </View>
-        <View style={this.style.week}>
+        <View style={[this.style.week, this.props.styleSheet.week]}>
           {weekDaysNames.map((day, idx) => (
-            <Text key={idx} style={this.style.dayHeader}>{day}</Text>
+            <Text key={idx} style={[this.style.dayHeader, this.props.styleSheet.dayHeader]}>{day}</Text>
           ))}
         </View>
       </View>
