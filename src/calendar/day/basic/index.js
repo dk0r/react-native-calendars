@@ -15,6 +15,7 @@ class Day extends Component {
 
     // Specify theme properties to override specific styles for calendar parts. Default = {}
     theme: PropTypes.object,
+    styleSheet: PropTypes.object,
     marked: PropTypes.any,
     onPress: PropTypes.func,
     markingExists: PropTypes.bool,
@@ -35,9 +36,9 @@ class Day extends Component {
   }
 
   render() {
-    const containerStyle = [this.style.base];
-    const textStyle = [this.style.text];
-    const dotStyle = [this.style.dot];
+    const containerStyle = [this.style.base, styleSheet.day];
+    const textStyle = [this.style.text, styleSheet.dayText];
+    const dotStyle = [this.style.dot, styleSheet.dot];
 
     let marked = this.props.marked || {};
     if (marked && marked.constructor === Array && marked.length) {
@@ -47,7 +48,7 @@ class Day extends Component {
     }
     let dot;
     if (marked.marked) {
-      dotStyle.push(this.style.visibleDot);
+      dotStyle.push(this.style.visibleDot, styleSheet.visibleDot);
       dot = (<View style={dotStyle}/>);
     } else if (!this.props.markingExists) {
       textStyle.push(this.style.alignedText);
@@ -55,12 +56,17 @@ class Day extends Component {
 
     if (this.props.state === 'selected' || marked.selected) {
       containerStyle.push(this.style.selected);
+      containerStyle.push(styleSheet.selected);
       dotStyle.push(this.style.selectedDot);
+      containerStyle.push(styleSheet.selectedDot);
       textStyle.push(this.style.selectedText);
+      containerStyle.push(styleSheet.selectedText);
     } else if (this.props.state === 'disabled' || marked.disabled) {
       textStyle.push(this.style.disabledText);
+      containerStyle.push(styleSheet.disabledText);
     } else if (this.props.state === 'today') {
       textStyle.push(this.style.todayText);
+      containerStyle.push(styleSheet.todayText);
     }
     return (
       <TouchableOpacity style={containerStyle} onPress={this.props.onPress}>
