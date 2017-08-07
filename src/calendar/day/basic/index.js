@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
   TouchableOpacity,
   Text,
-  View
+  View,
+  StyleSheet,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
