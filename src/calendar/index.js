@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
   View,
   ViewPropTypes,
+  StyleSheet
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -23,10 +24,11 @@ class Calendar extends Component {
     theme: PropTypes.object,
     // Collection of dates that have to be marked. Default = {}
     markedDates: PropTypes.object,
-
+    
     // Specify style for calendar container element. Default = {}
     style: viewPropTypes.style,
-
+    styleSheet: PropTypes.object,
+    
     selected: PropTypes.array,
 
     // Initially visible month. Default = Date()
@@ -58,6 +60,10 @@ class Calendar extends Component {
     renderArrow: PropTypes.func,
     // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
     monthFormat: PropTypes.string
+  };
+
+  static defaultProps = {
+    styleSheet: StyleSheet.create({})
   };
 
   constructor(props) {
@@ -163,6 +169,7 @@ class Calendar extends Component {
             key={id}
             state={state}
             theme={this.props.theme}
+            styleSheet={this.props.styleSheet}
             onPress={this.pressDay.bind(this, day)}
             marked={this.getDateMarking(day)}
             markingExists={markingExists}
@@ -213,6 +220,7 @@ class Calendar extends Component {
     return (
       <View style={[this.style.container, this.props.style]}>
         <CalendarHeader
+          styleSheet={this.props.styleSheet}
           theme={this.props.theme}
           hideArrows={this.props.hideArrows}
           month={this.state.currentMonth}
